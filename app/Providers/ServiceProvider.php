@@ -6,9 +6,9 @@ namespace App\Plugin\Example\Providers;
 
 use App\Plugin\Core\Libraries\Panel\Entry;
 use App\Plugin\Core\Libraries\Panel\UserData;
-use App\Plugin\Core\Providers\PluginServiceProvider;
+use App\Plugin\Core\Providers\PluggableServiceProvider;
 
-class ServiceProvider extends PluginServiceProvider
+class ServiceProvider extends PluggableServiceProvider
 {
     public function boot()
     {
