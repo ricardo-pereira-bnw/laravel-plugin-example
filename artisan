@@ -26,11 +26,15 @@ $configFiles = array_walk($configFiles, function ($item) use (&$config, $configP
 
     $configParams = include_once implode(DSEP, [$configPath, $item]);
 
-    if (isset($configParams['plugin_namespace']) === false) {
-        return;
+    if (isset($configParams['plugin_namespace']) !== false) {
+        $config = $configParams;
+        $config['main_namespace'] = $configParams['plugin_namespace'];
     }
 
-    $config = $configParams;
+    if (isset($configParams['theme_namespace']) !== false) {
+        $config = $configParams;
+        $config['main_namespace'] = $configParams['theme_namespace'];
+    }
 });
 
 if ($config === null) {
@@ -68,7 +72,7 @@ class Application extends Illuminate\Foundation\Application
 $app = new \Application(
     $_ENV['APP_BASE_PATH'] ?? __DIR__ . '/vendor/laravel/laravel'
 );
-$app->usePluginNamespace("App\\Plugin\\{$config['plugin_namespace']}\\");
+$app->usePluginNamespace("App\\Plugin\\{$config['main_namespace']}\\");
 $app->useAppPath(__DIR__ . '/app');
 $app->useDatabasePath(__DIR__ . '/database');
 $app->useStoragePath($config['laravel_path'] . '/storage');
@@ -91,7 +95,7 @@ $kernel->bootstrap();
 
 // Registra os novos ServiceProviders usados neste plugin
 $app->register(App\Plugin\Core\Providers\ServiceProvider::class);
-$app->register("App\\Plugin\\{$config['plugin_namespace']}\\Providers\\ServiceProvider");
+$app->register("App\\Plugin\\{$config['main_namespace']}\\Providers\\ServiceProvider");
 
 Handler::instance()->registerPlugin(App\Plugin\Core\Providers\ServiceProvider::class);
 
