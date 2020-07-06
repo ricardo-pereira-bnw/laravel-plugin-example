@@ -50,12 +50,11 @@ class ServiceProvider extends PluggableServiceProvider
         // Os itens do menu do cabeçalho podem ser configurados no service provider do plugin e também 
         // nos controladores que extenderem App\Plugin\Core\Http\Controllers\PluggableController
         $this->headerMenu()
-            ->append(new Entry('Usuario', '/example/home', 'exclamation-circle-fill'))
+            ->append(new Entry('Usuario', '/example/form'))
             ->append(new Entry('Grid', '/example/grid'))
             ->append(new Entry('Form', '/example/form'))
             ->append((new Entry('Sep'))->setType(Entry::TYPE_SEPARATOR))
-            ->append((new Entry('Página Um', '/example/page'))->setStatus(Entry::STATUS_DISABLED))
-            ->append((new Entry('Página Dois', '/example/page'))->setStatus(Entry::STATUS_DISABLED));
+            ->append((new Entry('Página Desativada', '/example/page'))->setStatus(Entry::STATUS_DISABLED));
     }
 
     public function register()
