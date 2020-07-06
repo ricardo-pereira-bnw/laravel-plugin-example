@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2b470b148b7f7dcc0493c3fe2446c1ff",
+    "content-hash": "537ac5652ffc82b96dd4f953853d6374",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -60,16 +60,16 @@
         },
         {
             "name": "bnw/laravel-plugin-core",
-            "version": "v0.3.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bueno-networks/laravel-plugin-core.git",
-                "reference": "6d6d6405331bd5e141e804e7fd98aa5da71a1a6a"
+                "reference": "1ea57434a32f30c4626aa21e787b04f9409963c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bueno-networks/laravel-plugin-core/zipball/6d6d6405331bd5e141e804e7fd98aa5da71a1a6a",
-                "reference": "6d6d6405331bd5e141e804e7fd98aa5da71a1a6a",
+                "url": "https://api.github.com/repos/bueno-networks/laravel-plugin-core/zipball/1ea57434a32f30c4626aa21e787b04f9409963c7",
+                "reference": "1ea57434a32f30c4626aa21e787b04f9409963c7",
                 "shasum": ""
             },
             "require": {
@@ -123,7 +123,7 @@
                 "core",
                 "laravel"
             ],
-            "time": "2020-06-30T20:24:20+00:00"
+            "time": "2020-07-02T20:00:03+00:00"
         },
         {
             "name": "brick/math",
@@ -1029,16 +1029,16 @@
         },
         {
             "name": "laravel/ui",
-            "version": "v2.0.3",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/ui.git",
-                "reference": "15368c5328efb7ce94f35ca750acde9b496ab1b1"
+                "reference": "da9350533d0da60d5dc42fb7de9c561c72129bba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/ui/zipball/15368c5328efb7ce94f35ca750acde9b496ab1b1",
-                "reference": "15368c5328efb7ce94f35ca750acde9b496ab1b1",
+                "url": "https://api.github.com/repos/laravel/ui/zipball/da9350533d0da60d5dc42fb7de9c561c72129bba",
+                "reference": "da9350533d0da60d5dc42fb7de9c561c72129bba",
                 "shasum": ""
             },
             "require": {
@@ -1080,7 +1080,7 @@
                 "laravel",
                 "ui"
             ],
-            "time": "2020-04-29T15:06:45+00:00"
+            "time": "2020-06-30T20:56:33+00:00"
         },
         {
             "name": "league/commonmark",
@@ -1360,16 +1360,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.35.0",
+            "version": "2.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "4b9bd835261ef23d36397a46a76b496a458305e5"
+                "reference": "d0b65958d9942fd1b501fdb0800c67e8323aa08d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/4b9bd835261ef23d36397a46a76b496a458305e5",
-                "reference": "4b9bd835261ef23d36397a46a76b496a458305e5",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/d0b65958d9942fd1b501fdb0800c67e8323aa08d",
+                "reference": "d0b65958d9942fd1b501fdb0800c67e8323aa08d",
                 "shasum": ""
             },
             "require": {
@@ -1381,9 +1381,10 @@
             "require-dev": {
                 "doctrine/orm": "^2.7",
                 "friendsofphp/php-cs-fixer": "^2.14 || ^3.0",
-                "kylekatarnls/multi-tester": "^1.1",
+                "kylekatarnls/multi-tester": "^2.0",
                 "phpmd/phpmd": "^2.8",
-                "phpstan/phpstan": "^0.11",
+                "phpstan/extension-installer": "^1.0",
+                "phpstan/phpstan": "^0.12.30",
                 "phpunit/phpunit": "^7.5 || ^8.0",
                 "squizlabs/php_codesniffer": "^3.4"
             },
@@ -1399,6 +1400,11 @@
                 "laravel": {
                     "providers": [
                         "Carbon\\Laravel\\ServiceProvider"
+                    ]
+                },
+                "phpstan": {
+                    "includes": [
+                        "extension.neon"
                     ]
                 }
             },
@@ -1439,20 +1445,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-05-24T18:27:52+00:00"
+            "time": "2020-06-25T20:20:01+00:00"
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.5.0",
+            "version": "v4.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "53c2753d756f5adb586dca79c2ec0e2654dd9463"
+                "reference": "c346bbfafe2ff60680258b631afb730d186ed864"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/53c2753d756f5adb586dca79c2ec0e2654dd9463",
-                "reference": "53c2753d756f5adb586dca79c2ec0e2654dd9463",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/c346bbfafe2ff60680258b631afb730d186ed864",
+                "reference": "c346bbfafe2ff60680258b631afb730d186ed864",
                 "shasum": ""
             },
             "require": {
@@ -1491,7 +1497,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2020-06-03T07:24:19+00:00"
+            "time": "2020-07-02T17:12:47+00:00"
         },
         {
             "name": "opis/closure",
@@ -6513,7 +6519,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "bnw/laravel-plugin-core": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

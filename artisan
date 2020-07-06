@@ -1,24 +1,45 @@
 #!/usr/bin/env php
 <?php
 
+use App\Plugin\Core\Libraries\Plugins\Handler;
+
 define('LARAVEL_START', microtime(true));
+define('DSEP', DIRECTORY_SEPARATOR);
 
-/*
-|--------------------------------------------------------------------------
-| Register The Auto Loader
-|--------------------------------------------------------------------------
-|
-| Composer provides a convenient, automatically generated class loader
-| for our application. We just need to utilize it! We'll require it
-| into the script here so that we do not have to worry about the
-| loading of any our classes "manually". Feels great to relax.
-|
-*/
 
-require __DIR__ . '/vendor/autoload.php';
+require implode(DSEP, [__DIR__, 'vendor', 'autoload.php']);
 
-$config = require_once __DIR__ . '/config/plugin_example.php';
+// ------------------------------------------------------------------------------
+// Obtém os parâmetros de configuração existentes no plugin.
+// ------------------------------------------------------------------------------
+// Apenas o arquivo que contiver o 'plugin_namespace' será obtido aqui.
+// outros arquivos de configuração serão ignorados
+// ------------------------------------------------------------------------------
+$config = null;
+$configPath = implode(DSEP, [__DIR__, 'config']);
+$configFiles = scandir($configPath);
+$configFiles = array_walk($configFiles, function ($item) use (&$config, $configPath) {
 
+    if (in_array($item, ['.', '..']) == true) {
+        return;
+    }
+
+    $configParams = include_once implode(DSEP, [$configPath, $item]);
+
+    if (isset($configParams['plugin_namespace']) === false) {
+        return;
+    }
+
+    $config = $configParams;
+});
+
+if ($config === null) {
+    throw new Exception("Nenhum arquivo de configuração válido foi encontrado em {$configPath}. Ele deve possuir os parâmetros 'plugin_namespace' e 'laravel_path'");
+}
+
+if (isset($config['laravel_path']) === false) {
+    throw new Exception("O arquivo de configuração não possui o parâmetro 'laravel_path'");
+}
 class Kernel extends App\Console\Kernel
 {
     protected function commands()
@@ -33,7 +54,7 @@ class Kernel extends App\Console\Kernel
 
 class Application extends Illuminate\Foundation\Application
 {
-    public function useModuleNamespace(string $namespace)
+    public function usePluginNamespace(string $namespace)
     {
         $this->namespace = $namespace;
     }
@@ -47,7 +68,7 @@ class Application extends Illuminate\Foundation\Application
 $app = new \Application(
     $_ENV['APP_BASE_PATH'] ?? __DIR__ . '/vendor/laravel/laravel'
 );
-$app->useModuleNamespace("App\\Plugin\\{$config['plugin_namespace']}\\");
+$app->usePluginNamespace("App\\Plugin\\{$config['plugin_namespace']}\\");
 $app->useAppPath(__DIR__ . '/app');
 $app->useDatabasePath(__DIR__ . '/database');
 $app->useStoragePath($config['laravel_path'] . '/storage');
@@ -63,35 +84,21 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
-/*
-|--------------------------------------------------------------------------
-| Run The Artisan Application
-|--------------------------------------------------------------------------
-|
-| When we run the console application, the current CLI command will be
-| executed in this console and the response sent back to a terminal
-| or another output device for the developers. Here goes nothing!
-|
-*/
-
 $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
+
+// Faz o bootstrap dos ServicePrividers existentes na aplicação do Laravel
+$kernel->bootstrap();
+
+// Registra os novos ServiceProviders usados neste plugin
+$app->register(App\Plugin\Core\Providers\ServiceProvider::class);
+$app->register("App\\Plugin\\{$config['plugin_namespace']}\\Providers\\ServiceProvider");
+
+Handler::instance()->registerPlugin(App\Plugin\Core\Providers\ServiceProvider::class);
 
 $status = $kernel->handle(
     $input = new Symfony\Component\Console\Input\ArgvInput,
     new Symfony\Component\Console\Output\ConsoleOutput
 );
 
-/*
-|--------------------------------------------------------------------------
-| Shutdown The Application
-|--------------------------------------------------------------------------
-|
-| Once Artisan has finished running, we will fire off the shutdown events
-| so that any final work may be done by the application before we shut
-| down the process. This is the last thing to happen to the request.
-|
-*/
-
 $kernel->terminate($input, $status);
-
 exit($status);
