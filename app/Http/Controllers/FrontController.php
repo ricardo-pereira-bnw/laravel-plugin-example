@@ -15,7 +15,6 @@ class FrontController extends AController
         // $this->changeTheme('core');
 
         $this->breadcrumb()
-            ->append(new Entry('Home', '/core/home'))
             ->append(new Entry('Paginas', '/core/page', 'exclamation-circle-fill'));
 
         $this->pageTitle('Este é meu home');
@@ -31,10 +30,10 @@ class FrontController extends AController
         $this->pageTitle('Este é meu título nice');
 
         $this->breadcrumb()
-            ->append(new Entry('Home', '/core/home'))
-            ->append(new Entry('Paginas', '/core/page', 'exclamation-circle-fill'));
+            ->append(new Entry('Pagina', '/example/page'));
 
-        $this->sidebar()->append(new Entry('Carambolis'));
+        $this->sidebar()
+            ->append(new Entry('Item Dinâmico', '/admin/home', 'emoji-smile'));
         return vue('example::example.page');
     }
 
@@ -43,8 +42,7 @@ class FrontController extends AController
         $this->changeTheme('core');
         $this->pageTitle('Formulário');
         $this->breadcrumb()
-            ->append(new Entry('Home', '/core/home'))
-            ->append(new Entry('Formumário', '/core/page', 'exclamation-circle-fill'));
+            ->append(new Entry('Formumário', '/core/form'));
 
         // Handler::instance()->disableSidebarLeft();
         return vue('example::example.form');
@@ -54,6 +52,10 @@ class FrontController extends AController
     {
         $this->changeTheme('core');
         $this->pageTitle('Grade de Dados');
+
+        $this->breadcrumb()
+            ->append(new Entry('Grade', '/core/grid'));
+
         return vue('example::example.grid');
     }
 }
