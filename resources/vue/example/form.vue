@@ -68,17 +68,17 @@
     },
     mounted() {
       console.log(app.pages().urlNodes())
-      app.toast("Exemplo de toast " + app.pages().urlPath(), { variant: 'danger', title: 'Com titulo' })
+      app.panel().toast("Exemplo de toast " + app.pages().urlPath(), { variant: 'danger', title: 'Com titulo' })
       app.request().get('/core/meta');
     },
     methods: {
       confirm(){
-        app.confirm('Confirmação', 'Você confirma que está confirmando isso?', function(response){
+        app.panel().confirm('Confirmação', 'Você confirma que está confirmando isso?', function(response){
           if(response === 'yes') {
-            app.message('Ok', 'Confirmado')
+            app.panel().message('Ok', 'Confirmado')
             
           } else if(response === 'no') {
-            app.message('Que pena!', 'Quem sabe na próxima')
+            app.panel().message('Que pena!', 'Quem sabe na próxima')
           }
           
         })
