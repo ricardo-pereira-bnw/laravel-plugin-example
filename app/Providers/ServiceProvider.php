@@ -38,7 +38,9 @@ class ServiceProvider extends PluggableServiceProvider
         $this->sidebar()
             ->append(new Entry('Grid', '/example/grid', 'list'))
             ->append(new Entry('Form', '/example/form', 'layout-text-sidebar-reverse'))
-            ->append(new Entry('Página', '/example/page', 'file-earmark'));
+            ->append(new Entry('Página', '/example/page', 'file-earmark'))
+            ->append(new Entry('Forbidden', '/example/forbidden'))
+            ->append(new Entry('Unauthorized', '/example/unauthorized'));
         $entry = (new Entry('Submenu', '/example/page', 'box-arrow-in-down'))
             ->appendChild(new Entry('Laravel', 'https://laravel.com'))
             ->appendChild((new Entry('Vue', 'https://vuejs.org'))->setStatus(Entry::STATUS_ACTIVE))

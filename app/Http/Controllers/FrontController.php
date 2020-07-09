@@ -58,4 +58,14 @@ class FrontController extends AController
 
         return vue('example::example.grid');
     }
+
+    public function forbidden()
+    {
+        return vueAbort(403, 'Não há permissão para acessar essa área');
+    }
+
+    public function unauthorized()
+    {
+        return vueAbort(401, 'É necessário estar logado');
+    }
 }

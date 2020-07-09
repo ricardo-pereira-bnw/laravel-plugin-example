@@ -43,6 +43,7 @@
 
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button variant="info" @click="confirm">Confirm</b-button>
     </b-form>
     <b-card class="mt-3" header="Form Data Result">
       <pre class="m-0">{{ form }}</pre>
@@ -53,8 +54,6 @@
 <script>
   export default {
     data() {
-
-      
 
       return {
         form: {
@@ -68,10 +67,24 @@
       }
     },
     mounted() {
-      console.log('request de /core/meta')
+      console.log(app.urlPath())
+      console.log(app.urlNodes())
+      app.toast('Exemplo de toast', { variant: 'danger', title: 'Com titulo' })
+      app.toast('Exemplo de toast sem título', { variant: 'info' })
       app.request().get('/core/meta');
     },
     methods: {
+      confirm(){
+        app.confirm('Confirmação', 'Você confirma que está confirmando isso?', function(response){
+          if(response === 'yes') {
+            app.message('Ok', 'Confirmado')
+            
+          } else if(response === 'no') {
+            app.message('Que pena!', 'Quem sabe na próxima')
+          }
+          
+        })
+      },
       onSubmit(evt) {
         evt.preventDefault()
         alert(JSON.stringify(this.form))
