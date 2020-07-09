@@ -67,10 +67,8 @@
       }
     },
     mounted() {
-      console.log(app.urlPath())
-      console.log(app.urlNodes())
-      app.toast('Exemplo de toast', { variant: 'danger', title: 'Com titulo' })
-      app.toast('Exemplo de toast sem título', { variant: 'info' })
+      console.log(app.pages().urlNodes())
+      app.toast("Exemplo de toast " + app.pages().urlPath(), { variant: 'danger', title: 'Com titulo' })
       app.request().get('/core/meta');
     },
     methods: {
